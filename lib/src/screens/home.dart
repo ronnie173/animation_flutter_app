@@ -21,13 +21,24 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
         .animate(CurvedAnimation(parent: catController, curve: Curves.easeIn));
   }
 
+  onTap() {
+    if (catController.status == AnimationStatus.completed) {
+      catController.reverse();
+    } else if (catController.status == AnimationStatus.dismissed) {
+      catController.forward();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Animation'),
       ),
-      body: buildAnimation(),
+      body: GestureDetector(
+        child: buildAnimation(),
+        onTap: onTap,
+      ),
     );
     return null;
   }
